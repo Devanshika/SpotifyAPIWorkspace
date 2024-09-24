@@ -1,3 +1,4 @@
+#This program lets user select a playlist and recommends a song 
 import os
 import sys
 import json
@@ -26,10 +27,12 @@ user= spotipyObject.current_user()
 displayName=user['display_name']
 print("Hi " +displayName+" lets get your playlists")
 playlists=spotipyObject.current_user_playlists(limit=50, offset=0)
+
 #print(json.dumps(playlists, sort_keys=True, indent=4))
 playlists=playlists['items']
 userPlaylist=[]
 count = 0
+
 #displaying userPlaylist
 for item in playlists:
     count = count + 1
