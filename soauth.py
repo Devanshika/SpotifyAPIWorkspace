@@ -9,13 +9,14 @@ from json.decoder import JSONDecodeError
 #get username
 username= "31tu3cd3yx6s4b6gcdtpelerisui"
 scope= 'user-read-private user-read-playback-state user-modify-playback-state'
-#erase cache and promp(t for user permission
 
+#erase cache and prompt for user permission
 try:
     token=util.prompt_for_user_token(username, scope)
 except:
     os.remove(f".cache-{username}")
     token=util.prompt_for_user_token(username, scope)
+    
 #create spotify object
 spotipyObject=spotipy.Spotify(auth=token)
 
@@ -24,13 +25,12 @@ devices=spotipyObject.devices()
 print(json.dumps(devices, sort_keys=True, indent=4))
 deviceId=devices['devices'][0]['id']
 
-#getting currenr track information
+#getting current track information
 track=spotipyObject.current_user_playing_track()
 print(json.dumps(track, sort_keys=True, indent=4))
 print()
 artist=track['item']['artists'][0]['name']
 track=track['item']['name']
-
 if artist !="":
     print("Currently playing" +artist+ " "+track)
    
@@ -38,7 +38,6 @@ if artist !="":
 user= spotipyObject.current_user()
 displayName=user['display_name']
 followers=user['followers']['total']
-
 while True:
     print()
     print("welcome to SPOTIPY " +displayName+ "You have followers: " + str(followers))
@@ -46,10 +45,12 @@ while True:
     print("1 for search an artist")
     print("0 for exit")
     choice=input("Enter your choice:")
+
 #search artist    
     if choice=="1":
         searchQuery=input("Enter artist")
         print()
+
         #get search results
     
         searchResults=spotipyObject.search(searchQuery, 1,0,"artist")
